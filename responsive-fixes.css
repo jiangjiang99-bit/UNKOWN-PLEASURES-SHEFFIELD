@@ -1,0 +1,50 @@
+/* Responsive safeguards for the static deployment. Desktop rules remain in the bundled stylesheet. */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body { position: relative; }
+main, section, header, footer, .shell, .marquee, .grainient-container, .site-grainient { max-width: 100%; }
+
+/* Fixed layers track the visual viewport, rather than the scrollbar-inclusive vw unit. */
+.site-grainient,
+.galaxy-container { width: 100%; max-width: 100%; }
+.grainient-container,
+.grainient-container canvas,
+.galaxy-container,
+.hero-starfield { touch-action: pan-y; }
+
+@media (max-width: 767px) {
+  html, body, #root { width: 100%; max-width: 100%; overflow-x: hidden; }
+  .shell { width: calc(100% - 32px); max-width: calc(100% - 32px); min-width: 0; margin-inline: auto; }
+  .hero { width: 100%; max-width: 100%; min-height: 100svh; height: 100svh; }
+  @supports (height: 100dvh) { .hero { min-height: 100dvh; height: 100dvh; } }
+  .hero-video, .hero-fallback { width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: center; }
+  /* The desktop crop is retained but contained inside the Hero on narrow screens. */
+  .hero-video { transform: scale(1.16); }
+  .hero-content { width: calc(100% - 32px); max-width: calc(100% - 32px); min-width: 0; padding-bottom: 52px; }
+  .hero h1, .hero h1.wordmark { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(48px, 14vw, 70px); }
+  .genre, .kicker, .hero-bottom { max-width: 100%; }
+  .statement, .event-grid, .footer-grid { width: 100%; max-width: 100%; min-width: 0; grid-template-columns: minmax(0, 1fr); }
+  .statement { padding-inline: 16px; }
+  .statement h2, .statement-copy, .event-copy, .poster, .footer-grid > * { width: 100%; min-width: 0; max-width: 100%; }
+  .statement-copy { justify-self: stretch; }
+  .upcoming h2 { max-width: 100%; overflow-wrap: anywhere; }
+  .poster, .poster img { width: 100%; max-width: 100%; }
+  .archive, .marquee { width: 100%; max-width: 100%; }
+  /* This intentionally wide gallery track is clipped by its local marquee, never by the page. */
+  .track { max-width: none; }
+  .site-grainient, .grainient-container, .grainient-container canvas, .galaxy-container { width: 100%; max-width: 100%; }
+  .site-grainient { inset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) { .touch-atmosphere { display: none; } }
